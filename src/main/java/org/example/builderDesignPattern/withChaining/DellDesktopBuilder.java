@@ -1,6 +1,7 @@
 package org.example.builderDesignPattern.withChaining;
 
-public class DellDesktopBuilder extends DesktopBuilder {
+public class DellDesktopBuilder implements DesktopBuilder {
+    private Desktop desktop;
     public DellDesktopBuilder() {
         desktop = new Desktop();
     }
@@ -29,6 +30,10 @@ public class DellDesktopBuilder extends DesktopBuilder {
     public DesktopBuilder buildGraphicsCard() {
         desktop.setGraphicsCard("Dell Graphics Card");
         return this;
+    }
+    @Override
+    public Desktop getDesktop() {
+        return desktop;
     }
 
 }

@@ -1,6 +1,7 @@
 package org.example.builderDesignPattern.withChaining;
 
-public class HPDesktopBuilder extends DesktopBuilder {
+public class HPDesktopBuilder implements DesktopBuilder {
+    private Desktop desktop;
     public HPDesktopBuilder() {
         desktop = new Desktop();
     }
@@ -30,5 +31,8 @@ public class HPDesktopBuilder extends DesktopBuilder {
         desktop.setGraphicsCard("HP Graphics Card");
         return this;
     }
-
+    @Override
+    public Desktop getDesktop() {
+        return desktop;
+    }
 }

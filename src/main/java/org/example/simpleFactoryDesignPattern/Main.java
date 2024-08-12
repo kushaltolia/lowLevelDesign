@@ -14,3 +14,4 @@ public class Main {
         errorLogger.log("This is an error message");
     }
 }
+ 
