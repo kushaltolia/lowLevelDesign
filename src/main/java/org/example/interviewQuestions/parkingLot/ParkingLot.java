@@ -1,8 +1,12 @@
 package org.example.interviewQuestions.parkingLot;
 
+import lombok.Data;
+import lombok.Getter;
+
 import java.util.ArrayList;
 import java.util.List;
 
+@Data
 public class ParkingLot {
     private List<Floor> floors;
     private List<EntranceGate> entranceGates;
@@ -24,14 +28,6 @@ public class ParkingLot {
 
     public void addExitGate(ExitGate exitGate) {
         exitGates.add(exitGate);
-    }
-
-    public List<EntranceGate> getEntranceGates() {
-        return entranceGates;
-    }
-
-    public List<ExitGate> getExitGates() {
-        return exitGates;
     }
 
     public Floor getFloor(int floorNumber) {

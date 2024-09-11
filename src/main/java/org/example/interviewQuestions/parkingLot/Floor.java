@@ -1,5 +1,6 @@
 package org.example.interviewQuestions.parkingLot;
 
+import lombok.Getter;
 import org.example.interviewQuestions.parkingLot.parkingSpotManager.FourWheelerParkingSpotManager;
 import org.example.interviewQuestions.parkingLot.parkingSpotManager.IParkingSpotManager;
 import org.example.interviewQuestions.parkingLot.parkingSpotManager.TwoWheelerParkingSpotManager;
@@ -8,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Floor {
+    @Getter
     private int floorNumber;
     private List<IParkingSpotManager> parkingSpotManagers;
 
@@ -31,7 +33,4 @@ public class Floor {
         return null;
     }
 
-    public int getFloorNumber() {
-        return floorNumber;
-    }
 }

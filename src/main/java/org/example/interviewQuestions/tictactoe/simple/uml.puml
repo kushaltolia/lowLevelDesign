@@ -1,0 +1,54 @@
+@startuml
+
+' Define the enum Piece
+enum Piece {
+    X
+    O
+}
+
+' Define the Player class
+class Player {
+    - name: String
+    - piece: Piece
+    + Player(name: String, piece: Piece)
+    + getName(): String
+    + getPiece(): Piece
+}
+
+' Define the Move class
+class Move {
+    - row: int
+    - col: int
+    - player: Player
+    + Move(row: int, col: int, player: Player)
+    + getRow(): int
+    + getCol(): int
+    + getPlayer(): Player
+}
+
+' Define the Board class
+class Board {
+    - board: Piece[][]
+    - size: int
+    + Board(size: int)
+    + makeMove(move: Move): boolean
+    + printBoard(): void
+    + checkWin(piece: Piece): boolean
+    + isFull(): boolean
+}
+
+' Define the Game class
+class Game {
+    - board: Board
+    - players: Player[]
+    - currentPlayerIndex: int
+    + Game(boardSize: int, players: Player[])
+    + start(): void
+}
+
+' Define the relationships
+Player --> Move: has
+Move --> Board: interacts with
+Board --> Game: used by
+
+@enduml

@@ -1,0 +1,160 @@
+@startuml
+
+' Define VehicleType Enum
+enum VehicleType {
+    TWO_WHEELER
+    FOUR_WHEELER
+}
+
+' Vehicle class
+class Vehicle {
+    - licensePlate: String
+    - type: VehicleType
+    + getLicensePlate(): String
+    + getType(): VehicleType
+}
+
+' ParkingSpot interface
+interface ParkingSpot {
+    + isFree(): boolean
+    + parkVehicle(vehicle: Vehicle): void
+    + removeVehicle(): void
+    + getVehicle(): Vehicle
+    + getVehicleType(): VehicleType
+    + getSpotNumber(): int
+}
+
+' TwoWheelerParkingSpot class
+class TwoWheelerParkingSpot {
+    - price: double = 20
+    - vehicle: Vehicle
+    - spotNumber: int
+}
+TwoWheelerParkingSpot ..|> ParkingSpot
+
+' FourWheelerParkingSpot class
+class FourWheelerParkingSpot {
+    - price: double = 40
+    - vehicle: Vehicle
+    - spotNumber: int
+}
+FourWheelerParkingSpot ..|> ParkingSpot
+
+' ParkingSpotManager interface
+interface ParkingSpotManager {
+    + findParkingSpot(): ParkingSpot
+    + addParkingSpot(spot: ParkingSpot): void
+}
+
+' TwoWheelerParkingSpotManager class
+class TwoWheelerParkingSpotManager {
+    - spots: List<ParkingSpot>
+}
+TwoWheelerParkingSpotManager ..|> ParkingSpotManager
+
+' FourWheelerParkingSpotManager class
+class FourWheelerParkingSpotManager {
+    - spots: List<ParkingSpot>
+}
+FourWheelerParkingSpotManager .|> ParkingSpotManager
+
+' Ticket class
+class Ticket {
+    - vehicle: Vehicle
+    - spot: ParkingSpot
+    - entryTime: LocalDateTime
+}
+
+' PricingStrategy interface
+interface PricingStrategy {
+    + calculatePrice(spot: ParkingSpot, durationMinutes: long): double
+}
+
+' DefaultPricingStrategy class
+class DefaultPricingStrategy {
+    + calculatePrice(spot: ParkingSpot, durationMinutes: long): double
+}
+DefaultPricingStrategy ..|> PricingStrategy
+
+' TimeBasedPricingStrategy class
+class TimeBasedPricingStrategy {
+    + calculatePrice(spot: ParkingSpot, durationMinutes: long): double
+}
+TimeBasedPricingStrategy ..|> PricingStrategy
+
+' Payment interface
+interface Payment {
+    + pay(amount: double): void
+}
+
+' CashPayment class
+class CashPayment {
+    + pay(amount: double): void
+}
+CashPayment ..|> Payment
+
+' CreditCardPayment class
+class CreditCardPayment {
+    + pay(amount: double): void
+}
+CreditCardPayment ..|> Payment
+
+' PaymentFactory class
+class PaymentFactory {
+    + getPayment(type: String): Payment
+}
+
+' ParkingManagerFactory class
+class ParkingManagerFactory {
+    + getManager(vehicleType: VehicleType): ParkingSpotManager
+}
+
+' EntranceGate class
+class EntranceGate {
+    - gateId: int
+    - floor: Floor
+    + enterVehicle(vehicle: Vehicle): Ticket
+}
+
+' ExitGate class
+class ExitGate {
+    - gateId: int
+    - floor: Floor
+    + exitVehicle(ticket: Ticket, paymentType: String, pricingType: String): void
+}
+
+' Floor class
+class Floor {
+    - floorNumber: int
+    - parkingSpotManagers: List<ParkingSpotManager>
+    + addParkingSpotManager(manager: ParkingSpotManager): void
+    + getParkingSpotManager(vehicleType: VehicleType): ParkingSpotManager
+    + getFloorNumber(): int
+}
+
+' ParkingLot class
+class ParkingLot {
+    - floors: List<Floor>
+    - entranceGates: List<EntranceGate>
+    - exitGates: List<ExitGate>
+    + addFloor(floor: Floor): void
+    + addEntranceGate(entranceGate: EntranceGate): void
+    + addExitGate(exitGate: ExitGate): void
+    + getEntranceGates(): List<EntranceGate>
+    + getExitGates(): List<ExitGate>
+    + getFloor(floorNumber: int): Floor
+}
+
+' Relationships
+Vehicle -- ParkingSpot : "uses"
+ParkingSpotManager -- ParkingSpot : "manages"
+Ticket --> Vehicle
+Ticket --> ParkingSpot
+Floor --> ParkingSpotManager
+ParkingLot --> Floor
+ParkingLot --> EntranceGate
+ParkingLot --> ExitGate
+PaymentFactory --> Payment
+ParkingManagerFactory --> ParkingSpotManager
+
+@enduml

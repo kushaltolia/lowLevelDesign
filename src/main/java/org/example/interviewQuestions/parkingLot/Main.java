@@ -61,7 +61,6 @@ public class Main {
         if (ticket != null) {
             exitGate1.exitVehicle(ticket, "cash", "default");
         }
-
         // Another vehicle enters through gate 2 on floor 2
         Vehicle car = new Vehicle("CAR123", VehicleType.FOUR_WHEELER);
         Ticket ticketCar = entranceGate2.enterVehicle(car);
