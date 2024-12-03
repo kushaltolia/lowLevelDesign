@@ -47,6 +47,8 @@ public class Main {
         ExitGate exitGate2 = new ExitGate(2, floor2);
 
         // Add gates to parking lot
+
+
         parkingLot.addEntranceGate(entranceGate1);
         parkingLot.addEntranceGate(entranceGate2);
 
